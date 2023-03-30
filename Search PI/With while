@@ -1,0 +1,23 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int n = 1;
+    float sum = 0.0f;
+    int i = 1;
+    float tmp = 0.0f;
+    do
+    {
+        tmp = sum;
+        sum +=n *  1.00/(2.00*i - 1.00);
+        cout << sum << endl;
+        n = n * -1;
+        i++;
+    }
+    while(abs(tmp - sum) > 0.001);
+    cout << "pi = " << sum * 4.00 << endl;
+
+    return 0;
+}
