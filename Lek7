@@ -1,0 +1,31 @@
+#include <iostream>
+
+using namespace std;
+
+int main(){
+    int Ivan[] = {10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
+    int n = sizeof(Ivan) / sizeof(Ivan[0]);
+    cout << n << endl;
+    int counter = 0;
+
+    for(int i = 1; i < n + 1; i++){
+        int buff = Ivan[i];
+        int j = i - 1;
+        while(j >= 0 && buff < Ivan[j]){
+                counter++;
+                Ivan[j + 1] = Ivan[j];
+                j--;
+        }
+        Ivan[j + 1] = buff;
+    }
+
+    for(int i = 0; i < n; i++)
+    {
+        cout << Ivan[i] << " , ";
+    }
+    cout << endl;
+    cout << "Counter: " << counter << endl;
+
+
+    return 0;
+}
