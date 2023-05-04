@@ -2,28 +2,75 @@
 
 using namespace std;
 
-int main() {
-    int Ivan[] = { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 };
-    int n  = sizeof(Ivan) / sizeof(Ivan[0]);
-    n = n - 1;
-    int counter = 0;
+void bubbleSortWhile(int arr[], int n) {
+    bool swapped = true;
+    int i = 0;
+    while (i < n - 1 && swapped) {
+        swapped = false;
+        for (int j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                int b = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = b;
+                swapped = true;
+            }
+        }
+        i++;
+    }
+}
 
-    for(int i = 0; i < n; i++) {
-        for (int j = 0; j < n - i; j++) {
-            if (Ivan[j + 1] < Ivan[j]) {
-                counter++;
-                int b = Ivan[j];
-                Ivan[j] = Ivan[j + 1];
-                Ivan[j + 1] = b;
+void bubbleSortFor(int arr[], int n) {
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                int b = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = b;
             }
         }
     }
+}
 
-    for (int i = 0; i < n + 1; i++)
+int rand_int(int maxval) {
+    return rand() % maxval + 1;
+}
+void copyArr(int A[], int B[], const int ARRAY_SIZE) {
+    for (int i = 0; i < ARRAY_SIZE; i++)
     {
-        cout << Ivan[i] << " , ";
+        B[i] = A[i];
     }
-    cout << endl;
-    cout << counter;
+ }
+
+const int ARRAY_SIZE = 1000;
+
+int main() {
+    clock_t c0, c1, c2, c3; /* clock_t defined in &lt;time.h&gt; and &lt;sys/types.h&gt; as int */
+    /* инициализира генератора на случайни числа: */
+
+    int A[ARRAY_SIZE];
+
+    c0 = clock();
+
+    /* попълваме масива със случайни числа с код като този долу: */
+    for (int i = 0; i < ARRAY_SIZE; i++)
+    {
+        A[i] = rand_int(2000);
+    }
+
+    int B[ARRAY_SIZE];
+    copyArr(A, B, ARRAY_SIZE);
+   
+    bubbleSortFor(A, ARRAY_SIZE);
+
+    c1 = clock();
+    cout << "Time for bubblesort with for: " << (float)(c1 - c0) / CLOCKS_PER_SEC << endl;
+
+    c2 = clock();
+
+    bubbleSortWhile(B, ARRAY_SIZE);
+
+    c3 = clock();
+    cout << "Time for bubblesort with while: " << (float)(c3 - c2) / CLOCKS_PER_SEC << endl;
+   
     return 0;
 }
