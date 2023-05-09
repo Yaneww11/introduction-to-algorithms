@@ -1,0 +1,106 @@
+#include <iostream>
+#include <stdlib.h>
+#include <time.h>
+#include <sys/types.h>
+
+using namespace std;
+
+void insertionBinary(int A[], const int n){
+    for(int i = 1; i < n; i++){
+        int buff = A[i];
+        int j = i - 1;
+        int start = 0, end = j;
+        while(start <= end) {
+            int mid = (start + end) / 2;
+            if(A[mid] > buff) {
+                end = mid - 1;
+            } else {
+                start = mid + 1;
+            }
+        }
+
+        for(int k = j; k >= start; k--){
+            A[k+1] = A[k];
+        }
+
+        A[start] = buff;
+    }
+}
+
+void directInsertion(int A[], const int n){
+    int buffer, j;
+
+    for(int i = 1; i < n; i++){
+        buffer = A[i];
+        j = i - 1;
+
+        while(j >= 0 && A[j] > buffer){
+            A[j+1] = A[j];
+            j--;
+        }
+        A[j+1] = buffer;
+    }
+}
+
+void directInsertionAnchor(int A[], const int n){
+    int buffer, j;
+
+    for(int i = 2; i < n; i++){
+        buffer = A[i];
+        j = i - 1;
+        A[0] = buffer;
+
+        while(A[j] > buffer){
+            A[j+1] = A[j];
+            j--;
+        }
+        A[j+1] = buffer;
+    }
+
+}
+
+void daviebakotvata(int A[], const int n){
+
+}
+
+int main(){
+
+    const int n = 20000; // 5000 10000 20000
+    int A[n], B[n], C[n + 1];
+
+    int counter = 0;
+    for(int i = n; i >= 0; i--){
+        A[counter] = i;
+        B[counter] = i;
+        C[counter] = i;
+        counter++;
+    }
+
+    clock_t c0, c1, c2, c3, c4, c5;
+
+    c0 = clock();
+
+    insertionBinary(A, n);
+
+    c1 = clock();
+
+    cout << "elapsed wall clock time for insertion sort with binary search: " << (float)(c1 - c0) / CLOCKS_PER_SEC << endl;
+
+    c2 = clock();
+
+    directInsertionAnchor(C, n + 1);
+
+    c3 = clock();
+
+    cout << "elapsed wall clock time for direct insertion sort with anchor: " << (float)(c3 - c2) / CLOCKS_PER_SEC << endl;
+
+    c4 = clock();
+
+    directInsertion(B, n);
+
+    c5 = clock();
+
+    cout << "elapsed wall clock time for direct insertion sort: " << (float)(c5 - c4) / CLOCKS_PER_SEC << endl;
+
+    return 0;
+}
