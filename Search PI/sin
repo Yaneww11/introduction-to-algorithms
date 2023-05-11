@@ -1,0 +1,36 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+double factorial(int n){
+    double denominator;
+    for (int i = 1; i <= n; i++) {
+            denominator *= i;
+        }
+    return denominator;
+}
+
+int main() {
+    int x = 7;
+    double sin = 0.0000;
+    double p = 0.0000;
+    int change = 1;
+    int n = 0;
+     cout << sin;
+
+    while(abs(p - sin) < 0.0001){
+        p = sin;
+        sin += change * pow(x, 2 * n + 1) / factorial(2*n - 1);
+        change *= -1;
+        n++;
+        cout << sin;
+    }
+cout << n;
+
+    return 0;
+}
+
+
+
+
